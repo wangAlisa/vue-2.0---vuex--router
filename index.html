@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, width=device-width">
+  <link rel="stylesheet" type="text/css" href="/index_aad0b8a.css">
+</head>
+<body>
+      <div id="app">
+        <div id="header">
+          <div class="arrow">
+            <a href="#">
+              <img src="/img/goback.png" alt="">
+            </a>
+          </div>
+          <div class="title">
+              <div class="left"><img src="/img/header.jpeg" alt=""></div>
+              <div class="des">
+                  <h1>肯德基宅急送（平西府店）</h1>
+                  <p>
+                      <span>商家配送&nbsp;/</span>
+                      <span>&nbsp;40分钟送达&nbsp;/</span>
+                      <span>&nbsp;配送费9</span>
+                      <span id = "imglast"><img src="/img/left.png" alt=""></span>
+                  </p>
+                  <p>公告：本餐厅不使用饿了么配送，
+                  由肯德基宅急送官方品牌配送，会员用户无法享受免配送费服务
+                  </p>
+              </div>
+          </div>
+          <div id="new">
+              <p>
+                <img src="/img/jian.png" alt="">
+                <span>新用户下单立减17.0元(不与其它活动同享)</span>
+                <span id = "last">3个活动</span>
+              </p>
+          </div>
+        </div>
+        <div id="choice">
+          <router-link to="/product">商品</router-link>
+          <router-link to="/judge">评论</router-link>
+        </div>
+        <div id = "leg">
+          <router-view></router-view>
+        </div>
+      </div>
+</body>
+<!-- 对象的是leg页面 -->
+<template id="productTem">
+  <div>
+      <ul class="leftProduct">
+          <router-link 
+                :to="'/product/big/food'+(index+1)" 
+                v-for = "(item,index) in list" 
+                v-text = "item"
+                tag = "li"
+          >
+          </router-link>
+      </ul>
+      <div id="rightProduct">
+          <router-view></router-view>
+      </div>
+  </div>
+</template>
+<!-- 对应的是右边的展示区和下面的购物车 -->
+<template id="foodTem">
+    <div>
+        <div id="ele" v-show = "!$store.state.sum">
+          <span class = "first"></span>
+           <!--  <img src="img/login/login.jpg" alt=""> -->
+            <span class = "pic"></span>
+            <span class = "second">购物车空空如也~</span>
+            <span class = "last">￥20元起送</span>
+          </div>
+        <div>
+        <div id="ele" v-show = "$store.state.sum">
+          <span class = "first"></span>
+           <!--  <img src="img/login/login.jpg" alt=""> -->
+            <span class = "pic"></span>
+            <span class = "second">一共￥{{$store.state.sum}}</span>
+            <span class = "last" id = "elegray">去结算</span>
+          </div>
+        <div>
+          <keep-alive>
+             <router-view></router-view>
+          </keep-alive>
+        </div>
+    </div>   
+</template>
+<template id = "food1Tem">
+  <div id = "food1">
+        <ul>
+          <li v-for = "(food,index) in list">
+              <img :src="'img/food1/'+food.img" alt="">
+              <div class="des">
+                  <h2 v-text = "food.title"></h2>
+                  <p v-text = "food.despriction"></p>
+                  <h3 v-text = "'￥'+food.price"></h3>
+              </div>
+              <div class="xuan">
+                  <img v-show = "food.sum" @click = "add(index);$store.commit('add',food.price)" class = "first" src="/img/jianhao.png" alt="">
+                  <input v-show = "food.sum" type="text" v-model = "food.sum">
+                  <img @click = "reduce(index);$store.commit('reduce',food.price)" class = "last" src="/img/jia.png" alt="">
+              </div>
+          </li>
+        </ul>
+  </div>
+</template>
+
+
+
+<!-- 评价模版 -->
+<template id="judge">
+    <div>
+        <div id = "judgement">
+            <div class="left">
+               <p class="number">4.5</p>
+               <span >综合评价</span>
+            </div>
+            <div class="right">
+               <p>服务态度&ensp;&ensp;&ensp;&ensp;4.6</p>
+               <p>菜品评价&ensp;&ensp;&ensp;&ensp;4.6</p>
+               <p>送达事件&ensp;&ensp;&ensp;&ensp;<i>40分钟</i></p>
+            </div>
+        </div>
+        <div class="list">
+              <div class="listC">
+                <router-link to = "/judge/all">全部（228）</router-link>
+                <router-link to = "/judge/good">满意（223）</router-link>
+                <router-link to = "/judge/nogood">不满意（5）</router-link>
+              </div>
+              <router-view></router-view>
+        </div>
+    </div>
+</template>
+
+<template id="all">
+    <div>
+      <ul id = "listall">
+        <li v-for = "i in list">
+          <img src="/img/user.jpeg" alt="">
+          <div>
+            <p>
+              <span>匿名用户</span>
+              <span class = "time">2017-07-10</span>
+            </p>
+            <span v-text = "text1"></span>
+            <span v-text = "text2"></span>
+            <span v-text = "text3"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+</template>
+ <script src="/lib/vue_70be911.js"></script>
+ <script src="/lib/vue-router_4ad082c.js"></script>
+ <script src="/lib/vue-resource_b77f32c.js"></script>
+ <script src="/lib/vuex_d8e1fb8.js"></script>
+ <script src="/main_39d4113.js"></script>
+</html>
